@@ -27,17 +27,26 @@ SELECT * FROM COUNTRY LIMIT 1;
 SELECT region FROM country WHERE region = 'Southern Europe';
 SELECT population from country WHERE region = 'Southern Europe';
 SELECT name from country WHERE region = 'Southern Europe' and population = 1000;
+-- Holy See (Vatican City State)
 Carmen is in Vatican City State
 
 -- Clue #2: Now that we're here, we have insight that Carmen was seen attending language classes in this country's officially recognized language. Check our databases and find out what language is spoken in this country, so we can call in a translator to work with you.
-
-
-
+SELECT code from country WHERE name = 'Holy See (Vatican City State)'
+-- VAT
+SELECT language from countrylanguage WHERE countrycode = 'VAT';
+-- Italian
+SELECT isofficial from countrylanguage WHERE countrycode = 'VAT';
+-- true
+Better call an Italian translator
 
 -- Clue #3: We have new news on the classes Carmen attended – our gumshoes tell us she's moved on to a different country, a country where people speak only the language she was learning. Find out which nearby country speaks nothing but that language.
+SELECT *  FROM country LEFT JOIN countrylanguage ON country.code = countrylanguage.countrycode WHERE countrylanguage.language = 'Italian' and country.region = 'Southern Europe';
 
-
-
+SELECT language FROM countrylanguage WHERE countrycode = 'ITA'; 
+-- several languages spoken
+SELECT language FROM countrylanguage WHERE countrycode = 'SMR';
+-- only Italian spoken
+Carmen is currently in San Marino
 
 -- Clue #4: We're booking the first flight out – maybe we've actually got a chance to catch her this time. There are only two cities she could be flying to in the country. One is named the same as the country – that would be too obvious. We're following our gut on this one; find out what other city in that country she might be flying to.
 
