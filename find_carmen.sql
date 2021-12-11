@@ -118,3 +118,36 @@ SELECT name FROM city WHERE city.population = 91084;
 -- She's in 
 Santa Monica
 ____________________________!
+--FIX Brazil Capital
+
+carmen=# UPDATE city
+carmen-# SET name = 'Brasília'
+carmen-# WHERE city.id = 211;
+UPDATE 1
+carmen=# SELECT name FROM city WHERE id = 211; 
+--  Brasília
+
+--FIX Algeria's localname
+
+SELECT localname  FROM country WHERE country.name = 'Algeria';
+--Al-Jazaï¿½ir/Algï¿½rie
+--Should be: الجزائر al-Dschazā’ir
+carmen=# UPDATE country
+carmen-# SET localname = 'الجزائر al-Dschazā’ir'
+carmen-# WHERE country.name = 'Algeria';
+UPDATE 1
+SELECT localname FROM country WHERE country.name = 'Algeria';
+--  الجزائر al-Dschazā’ir
+
+carmen=# SELECT *  FROM country WHERE name = 'Albania';
+--  code |  name   | continent |     region      | surfacearea | indepyear | population | lifeexpectancy |   gnp   | gnpold  |  localname  | governmentform |  headofstate   | capital | code2 
+
+--  ALB  | Albania | Europe    | Southern Europe |       28748 |      1912 |    3401200 |           71.6 | 3205.00 | 2500.00 | Shqip�ria | Republic       | Rexhep Mejdani |      34 | AL
+-- (1 row)
+
+carmen=# UPDATE country
+carmen-# SET localname = 'Shqipëria'
+carmen-# WHERE country.name = 'Albania';
+UPDATE 1
+carmen=# SELECT localname FROM country WHERE name = 'Albania';
+--Shqipëria                       
